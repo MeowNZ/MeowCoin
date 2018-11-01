@@ -29,9 +29,11 @@ contract MeowCoinTokenSale is MintedCrowdsale, Ownable {
     /// @notice if prerequisites are not fulfilled, the transaction is reverted.
     /// @dev    Overriden from Crowdsale.sol
     /// @dev    Overriden by TimedCrowdsale.sol, WhitelistedCrowdsale.sol
-    function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) {
+    function _preValidatePurchase(address _beneficiary, uint256 _weiAmount)
+    internal
+    view
+    {
         super._preValidatePurchase(_beneficiary, _weiAmount);
-
     }
 
     /// @notice  calculate the token amount investor is purchasing based on ether invested
@@ -62,4 +64,6 @@ contract MeowCoinTokenSale is MintedCrowdsale, Ownable {
     //     MeowCoin(token).unpause();
     //     MeowCoin(token).transferOwnership(owner);
     // }
+
+    // TODO add fallback function
 }
