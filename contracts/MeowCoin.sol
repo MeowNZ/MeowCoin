@@ -59,6 +59,12 @@ contract MeowCoin is ERC20Mintable, ERC20Burnable, Ownable {
     }
   }
 
+  function patCat(address catOwner) public {
+    checkCat(catOwner);
+    require(isCatAlive(catOwner), "Please only pat cats that are alive");
+    // It's so happy ^_^
+  }
+
   // Hip hip hooray, its yo cat's bday
   function summonCat(address catOwner) public onlyOwner {
     catBirthday[catOwner] = now;
@@ -82,4 +88,9 @@ contract MeowCoin is ERC20Mintable, ERC20Burnable, Ownable {
     lastFed[msg.sender] = now;
   }
 
+  // Override
+  function transfer(address to, uint256 value) public returns (bool) {
+    checkCat(msg.sender);
+    super.transfer(to, value);
+  }
 }
